@@ -3,11 +3,11 @@ from typing import Callable, TextIO
 import sol_snake
 from utils import get_example_file, get_exercise_file
 
-type Solution = Callable[[TextIO, bool], str]
+type Solution = Callable[[TextIO, bool], Any]
 
 SOLUTION_PREFIX = "day_"
 RUN_EXAMPLES : bool = True
-SKIP_EXERCISE : bool = True
+SKIP_EXERCISE : bool = False
 DAYS = range(1, 25 + 1)
 SKIP_DAYS : list[int] = []
 STOP_BEFORE = 2
