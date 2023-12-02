@@ -1,3 +1,4 @@
+import math
 from enum import Enum
 from typing import Self, TextIO
 
@@ -5,6 +6,7 @@ SET_SEPARATOR = ";"
 ITEM_SEPARATOR = ","
 type GameId = int
 type GameRecord = tuple[GameId, str]
+
 
 class CubeType(str, Enum):
     Red = "red"
@@ -41,6 +43,7 @@ def parse_cube_info(cube_info: str) -> CubeInfo:
             raise NotImplementedError(f"Unimplemented color: {color}")
     return CubeInfo(color_type, int(number))
 
+
 def parse_game_record(line: str) -> GameRecord:
     id_info, game_info = line.strip().split(":")
     id_number = int(id_info.split(" ")[1])
@@ -50,6 +53,7 @@ def parse_game_record(line: str) -> GameRecord:
 MaxRed = CubeInfo(CubeType.Red, 12)
 MaxGreen = CubeInfo(CubeType.Green, 13)
 MaxBlue = CubeInfo(CubeType.Blue, 14)
+
 
 def get_limit(cube_type: CubeType) -> CubeInfo:
     match cube_type:
@@ -62,24 +66,42 @@ def get_limit(cube_type: CubeType) -> CubeInfo:
         case _:
             raise NotImplementedError(f"Unimplemented color: {cube_type}")
 
-def all_cubes_within_limit(game_info : str) -> bool:
+
+def check_limits_and_calc_power(game_info: str) -> tuple[bool, int]:
+    maximums = {
+        CubeType.Blue: 0,
+        CubeType.Green: 0,
+        CubeType.Red: 0,
+    }
+    any_exceeds_limit = False
     for cube_set in game_info.split(SET_SEPARATOR):
         for cube_info in cube_set.strip().split(ITEM_SEPARATOR):
             cube = parse_cube_info(cube_info)
-            limit = get_limit(cube.cube_type)
-            if cube > limit:
-                return False
-    return True
+
+            current_max = maximums.get(cube.cube_type, 0)
+            if cube.quantity > current_max:
+                maximums[cube.cube_type] = cube.quantity
+            if not any_exceeds_limit:
+                limit = get_limit(cube.cube_type)
+                if cube > limit:
+                    any_exceeds_limit = True
+
+    cube_set_power = math.prod(maximums.values())
+    return (any_exceeds_limit, cube_set_power)
 
 
-def day_2(content: TextIO, is_example: bool = False) -> int:
+def day_2(content: TextIO, is_example: bool = False) -> tuple[int, int]:
     all_game_ids: list[GameId] = []
-    valid_ids : list[GameId] = []
+
+    valid_ids: list[GameId] = []
+    powers: list[int] = []
 
     for line in content:
         game_id, game_info = parse_game_record(line)
         all_game_ids.append(game_id)
-        if all_cubes_within_limit(game_info):
+        any_exceed_limit, cube_set_power = check_limits_and_calc_power(game_info)
+        powers.append(cube_set_power)
+        if any_exceed_limit:
             valid_ids.append(game_id)
 
-    return sum(valid_ids)
+    return sum(valid_ids), sum(powers)
