@@ -1,9 +1,10 @@
+import typing
 from typing import Callable, TextIO
 
 import sol_snake
 from utils import get_example_file, get_exercise_file
 
-type Solution = Callable[[TextIO, bool], Any]
+type Solution = Callable[[TextIO, bool], typing.Any]
 
 SOLUTION_PREFIX = "day_"
 RUN_EXAMPLES : bool = True
@@ -38,7 +39,7 @@ if __name__ == "__main__":
             continue
         if RUN_EXAMPLES:
             print("EXAMPLE")
-            example = get_example_file(day)
+            example = get_example_file(day, part=2)
             example_result = solution(example, True)
             print(example_result)
             print_content_separator()
