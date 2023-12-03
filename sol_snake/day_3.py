@@ -5,7 +5,6 @@ from typing import TextIO
 from datatypes import Coordinate, Direction
 from utils import get_coords
 
-input_pattern = r"(\d+)|[*$+#]"
 
 @dataclass
 class Symbol:
@@ -35,7 +34,7 @@ def parse_input(content: TextIO) -> tuple[list[PartNumber], list[Symbol]]:
         for line in f:
             for part_input in re.finditer(part_pattern, line):
                 # start is always index of the first match
-                start,end = part_input.span()
+                start, end = part_input.span()
                 # end - start is always the range of the match (similar to how spawn does)
                 number_size = end - start
                 value = part_input.group()
@@ -57,12 +56,12 @@ def part_is_adjacent(part : PartNumber, coords : list[Coordinate]) -> bool:
     for i in range(part.range):
         # x changes because of the number position
         x = part.start_pos[0]+i
-        any_adjacent, _ = find_number_adjacent((x,y), coords)
+        any_adjacent, _ = find_adjacent_coords((x,y), coords)
         if any_adjacent:
             return True
     return False
 
-def find_number_adjacent(pos : Coordinate, coords : list[Coordinate]) -> tuple[bool, list[Coordinate]]:
+def find_adjacent_coords(pos : Coordinate, coords : list[Coordinate]) -> tuple[bool, list[Coordinate]]:
     adjacent_coords = [get_coords(pos,d) for d in Direction if (get_coords(pos,d) in coords)]
     return (adjacent_coords != [], adjacent_coords)
 
@@ -89,7 +88,7 @@ def day_3(content: TextIO, is_example: bool = False) -> tuple[int, int]:
     }
 
     for i in valid_symbols:
-        _, adjacent_coords = find_number_adjacent(i.pos, list(parts_coord_map.keys()))
+        _, adjacent_coords = find_adjacent_coords(i.pos, list(parts_coord_map.keys()))
         # this is very likely to fail on very specific input, since we're relying on non-duplicates
         numbers_adjacent = list(set([parts_coord_map[j] for j in adjacent_coords]))
 
