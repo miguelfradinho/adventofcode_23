@@ -10,7 +10,7 @@ SOLUTION_PREFIX = "day_"
 RUN_EXAMPLES : bool = True
 SKIP_EXERCISE : bool = False
 DAYS = range(1, 25 + 1)
-SKIP_DAYS : list[int] = [1,2, 3, 4, 5, 6,7]
+SKIP_DAYS : list[int] = [1,2, 3, 4, 6,7, 8]
 STOP_BEFORE = 9
 
 def get_solution(day: int) -> Solution:
@@ -39,7 +39,7 @@ if __name__ == "__main__":
             continue
         if RUN_EXAMPLES:
             print("EXAMPLE")
-            example = get_example_file(day, part=2)
+            example = get_example_file(day)
             example_result = solution(example, True)
             print(example_result)
             print_content_separator()
