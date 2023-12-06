@@ -57,3 +57,26 @@ def get_coords(coord: Coordinate, direction: Direction) -> Coordinate:
 
         case other:
             raise ValueError("Wrong parsing", other)
+
+
+def parse_ints(seq : str | list[str]) -> list[int]:
+    """Utility function to parse a sequence of integers, just to avoid having type same thing over and over again.
+
+    Parameters
+    ----------
+    seq : str | list[str]
+        Sequence of integers, currently only supported for list or strings, returns an empty list otherwise
+
+    Returns
+    -------
+    numbers : list[int]
+        The numbers but now as ints
+
+    """
+    if isinstance(seq, str):
+        return [int(i) for i in seq.strip().split(" ")]
+    # Assuming it's a list of strings
+    elif isinstance(seq, list):
+        return [int(i) for i in seq]
+
+    return []
