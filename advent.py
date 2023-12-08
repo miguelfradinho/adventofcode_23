@@ -39,7 +39,7 @@ if __name__ == "__main__":
             continue
         if RUN_EXAMPLES:
             print("EXAMPLE")
-            example = get_example_file(day)
+            example = get_example_file(day, part=2)
             example_result = solution(example, True)
             print(example_result)
             print_content_separator()
