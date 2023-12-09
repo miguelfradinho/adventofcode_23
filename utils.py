@@ -74,9 +74,8 @@ def parse_ints(seq : str | list[str]) -> list[int]:
 
     """
     if isinstance(seq, str):
-        return [int(i) for i in seq.strip().split(" ")]
+        return [int(i) for i in seq.strip().split(" ") if i.isdecimal()]
     # Assuming it's a list of strings
     elif isinstance(seq, list):
-        return [int(i) for i in seq]
-
+        return [int(i) for i in seq if i.isdecimal()]
     return []
