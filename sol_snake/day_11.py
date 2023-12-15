@@ -4,6 +4,7 @@ import numpy as np
 import numpy.typing as nptypes
 
 from datatypes import Coordinate
+from utils import manhattan_distance
 
 
 def find_indices_to_expand(matrix: nptypes.NDArray):
@@ -78,11 +79,6 @@ def smart_find_expanded_coordinates(
             new_y = y + cols * expansion_factor
         expanded_coords.append((new_x, new_y))
     return expanded_coords
-
-
-def manhattan_distance(a, b):
-    return abs(a[0] - b[0]) + abs(a[1] - b[1])
-
 
 def calculate_distances(coordinates: list[Coordinate]) -> list[int]:
     total_coords = len(coordinates)

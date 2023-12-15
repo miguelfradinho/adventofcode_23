@@ -60,6 +60,10 @@ def get_coords(coord: Coordinate, direction: Direction) -> Coordinate:
             raise ValueError("Wrong parsing", other)
 
 
+def manhattan_distance(a, b):
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
+
 def parse_ints(seq : str | list[str]) -> list[int]:
     """Utility function to parse a sequence of integers, just to avoid having type same thing over and over again.
 
