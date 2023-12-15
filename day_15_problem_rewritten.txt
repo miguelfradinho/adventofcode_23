@@ -1,0 +1,19 @@
+# Rewritten just for clarity
+
+
+# Sequence of letters = Label
+# Each step -> the label of the lens on which the step operates.
+# Hashed Label -> Correct box of the step
+
+# The label is followed by either
+# equals sign (=) ->
+#   1. Hash label = "get relevant box"
+#   2. number AFTER "=" -> focalLength  = "it will be followed by a number indicating the focal length of the lens"
+#   3a. IF Box CONTAINS lens == label THEN REPLACE -INPLACE lens == label = If there is already a lens in the box with the same label, replace the old lens with the new lens: remove the old lens and put the new lens in its place, not moving any other lenses in the box.
+
+#   3b. ELSE ADD LEFT lens == label = "If there is not already a lens in the box with the same label, add the lens to the box immediately behind any lenses already in the box. Don't move any of the other lenses when you do this. If there aren't any lenses in the box, the new lens goes all the way to the front of the box."
+
+# dash (-) ->
+#   1. Hash label = "get relevant box"
+#   2. Remove IF lens == label IN Box = "remove the lens with the given label if it is present in the box.""
+#   2a. IF removed THEN Shift lenses = "Then, move any remaining lenses as far forward in the box as they can go without changing their order, filling any space made by removing the indicated lens.""
