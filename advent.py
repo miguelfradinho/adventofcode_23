@@ -11,7 +11,7 @@ RUN_EXAMPLES : bool = True
 SKIP_EXERCISE : bool = False
 DAYS = range(1, 25 + 1)
 SKIP_DAYS : list[int] = [1,2, 3, 4, 5, 6,7, 8]
-STOP_BEFORE = 10
+STOP_BEFORE = 12
 
 def get_solution(day: int) -> Solution:
     fnc_name = f"{SOLUTION_PREFIX}{day}"

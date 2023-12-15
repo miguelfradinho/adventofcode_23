@@ -7,3 +7,4 @@ from .day_6 import day_6
 from .day_7 import day_7
 from .day_8 import day_8
 from .day_9 import day_9
+from .day_11 import day_11
