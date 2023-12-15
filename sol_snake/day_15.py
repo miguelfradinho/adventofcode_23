@@ -75,6 +75,10 @@ def day_15(content: TextIO, is_example: bool = False) -> tuple[int, int]:
             else:
                 labeled_lense = Lense(label, focal_length)
                 curr_box.append(labeled_lense)
+        # very small memory footprint optimization just so we're not keeping the empty decks
+        # even if it might make it slower due to access
+        if not curr_box:
+            del storage[relevant_box]
 
     focusing_power = []
     for box, lenses in storage.items():
